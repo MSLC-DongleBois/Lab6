@@ -15,7 +15,7 @@
 //    ifconfig |grep inet   
 // to see what your public facing IP address is, the ip address can be used here
 //let SERVER_URL = "http://erics-macbook-pro.local:8000" // change this for your server name!!!
-let SERVER_URL = "http://10.8.116.92:8000" // change this for your server name!!!
+let SERVER_URL = "http://192.168.29.210:8000" // change this for your server name!!!
 
 import UIKit
 import CoreMotion
@@ -32,7 +32,7 @@ class ViewController: UIViewController, URLSessionDelegate {
     let animation = CATransition()
     let motion = CMMotionManager()
     
-    var magValue = 0.1
+    var magValue = 0.8
     var isCalibrating = false
     
     var isWaitingForMotionData = false
@@ -110,8 +110,7 @@ class ViewController: UIViewController, URLSessionDelegate {
         didSet{
             DispatchQueue.main.async{
                 // update label when set
-                self.dsidLabel.layer.add(self.animation, forKey: nil)
-                self.dsidLabel.text = "Current DSID: \(self.dsid)"
+               
             }
         }
     }
@@ -142,7 +141,7 @@ class ViewController: UIViewController, URLSessionDelegate {
             
             if mag > self.magValue {
                 // buffer up a bit more data and then notify of occurrence
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.00, execute: {
                     self.calibrationOperationQueue.addOperation {
                         // something large enough happened to warrant
                         self.largeMotionEventOccurred()
@@ -208,6 +207,7 @@ class ViewController: UIViewController, URLSessionDelegate {
         case .left:
             //end calibration
             self.calibrationStage = .notCalibrating
+            makeModel(self)
             setDelayedWaitingToTrue(1.0)
             break
         }
@@ -222,6 +222,11 @@ class ViewController: UIViewController, URLSessionDelegate {
     func setAsCalibrating(_ label: UILabel){
         label.layer.add(animation, forKey:nil)
         label.backgroundColor = UIColor.red
+    }
+    
+    func setAsPredicted(_ label: UILabel){
+        label.layer.add(animation, forKey:nil)
+        label.backgroundColor = UIColor.blue
     }
     
     func setAsNormal(_ label: UILabel){
@@ -352,6 +357,7 @@ class ViewController: UIViewController, URLSessionDelegate {
                                                                         }
                                                                     }
                                                                     else{
+                                                                        print(data!)
                                                                         let jsonDictionary = self.convertDataToDictionary(with: data)
                                                                         
                                                                         let labelResponse = jsonDictionary["prediction"]!
@@ -387,7 +393,7 @@ class ViewController: UIViewController, URLSessionDelegate {
     
     func blinkLabel(_ label:UILabel){
         DispatchQueue.main.async {
-            self.setAsCalibrating(label)
+            self.setAsPredicted(label)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
                 self.setAsNormal(label)
             })
