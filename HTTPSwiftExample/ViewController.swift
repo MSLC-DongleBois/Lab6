@@ -373,16 +373,16 @@ class ViewController: UIViewController, URLSessionDelegate {
     
     func displayLabelResponse(_ response:String){
         switch response {
-        case "['up']":
+        case "[u'up']":
             blinkLabel(upArrow)
             break
-        case "['down']":
+        case "[u'down']":
             blinkLabel(downArrow)
             break
-        case "['left']":
+        case "[u'left']":
             blinkLabel(leftArrow)
             break
-        case "['right']":
+        case "[u'right']":
             blinkLabel(rightArrow)
             break
         default:
