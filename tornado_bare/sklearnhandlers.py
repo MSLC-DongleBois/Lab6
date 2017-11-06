@@ -30,7 +30,7 @@ class UploadLabeledDatapointHandler(BaseHandler):
         fvals = [float(val) for val in vals]
         label = data['label']
         sess  = data['dsid']
-        
+        print(label)
         #Updated to save properly
         dbid = self.db.labeledinstances.insert(
                 {"feature":fvals,"label":label,"dsid":sess}
@@ -120,4 +120,5 @@ class PredictOneFromDatasetId(BaseHandler):
                     upsert=True
                 )
         predLabel = self.clf.predict(fvals)
+        print(predLabel)
         self.write_json({"prediction": str(predLabel)})
