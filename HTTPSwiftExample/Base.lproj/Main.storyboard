@@ -139,6 +139,7 @@
                         <outlet property="largeMotionMagnitude" destination="hUu-DN-Kwe" id="oWd-Qb-Qtq"/>
                         <outlet property="leftArrow" destination="YSY-pP-JYh" id="tST-zn-Nl1"/>
                         <outlet property="neighborCountLabel" destination="5Qi-Yj-f3r" id="cF2-nO-Fuf"/>
+                        <outlet property="neighborStaticTextLabel" destination="dbB-Uw-GN1" id="wqq-J5-KnK"/>
                         <outlet property="neighborStepper" destination="4m9-lg-Jz6" id="67v-1P-UOf"/>
                         <outlet property="rightArrow" destination="yvq-UU-Czy" id="RQ7-Cu-A6a"/>
                         <outlet property="segmentedControl" destination="Fzf-Xf-iNJ" id="RYg-18-ahX"/>

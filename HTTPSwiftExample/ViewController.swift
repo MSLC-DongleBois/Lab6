@@ -44,6 +44,7 @@ class ViewController: UIViewController, URLSessionDelegate {
     @IBOutlet weak var leftArrow: UILabel!
     @IBOutlet weak var largeMotionMagnitude: UIProgressView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var neighborStaticTextLabel: UILabel!
     @IBOutlet weak var neighborCountLabel: UILabel!
     @IBOutlet weak var neighborStepper: UIStepper!
     
@@ -457,15 +458,30 @@ class ViewController: UIViewController, URLSessionDelegate {
         let index = segmentedControl.selectedSegmentIndex
         if(index == 0) {
             self.model = "model_knn"
+            self.neighborStaticTextLabel.isHidden = false
+            self.neighborCountLabel.isHidden = false
+            self.neighborStepper.isHidden = false
         } else if(index == 1) {
             self.model = "model_svm"
+            self.neighborStaticTextLabel.isHidden = true
+            self.neighborCountLabel.isHidden = true
+            self.neighborStepper.isHidden = true
         } else if(index == 2) {
             self.model = "model_lr"
+            self.neighborStaticTextLabel.isHidden = true
+            self.neighborCountLabel.isHidden = true
+            self.neighborStepper.isHidden = true
         } else if(index == 3) {
             self.model = "model_mlp"
+            self.neighborStaticTextLabel.isHidden = true
+            self.neighborCountLabel.isHidden = true
+            self.neighborStepper.isHidden = true
         } else {
             print("ERROR: Invalid segment index selected")
             self.model = "model_knn"
+            self.neighborStaticTextLabel.isHidden = true
+            self.neighborCountLabel.isHidden = true
+            self.neighborStepper.isHidden = true
         }
         print("Changed segment to: \(segmentedControl.selectedSegmentIndex)")
     }
