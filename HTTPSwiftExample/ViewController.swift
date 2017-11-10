@@ -364,7 +364,7 @@ class ViewController: UIViewController, URLSessionDelegate {
         var request = URLRequest(url: postUrl!)
         
         // data to send in body of post request (send arguments as json)
-        let jsonUpload:NSDictionary = ["feature":array, "dsid":self.dsid, "model":self.model, "numNeighbors":self.numNeighbors]
+        let jsonUpload:NSDictionary = ["feature":array, "dsid":self.dsid, "model":self.model]
         
         
         let requestBody:Data? = self.convertDictionaryToData(with:jsonUpload)
@@ -428,7 +428,7 @@ class ViewController: UIViewController, URLSessionDelegate {
         
         // create a GET request for server to update the ML model with current data
         let baseURL = "\(SERVER_URL)/UpdateModel"
-        let query = "?dsid=\(self.dsid)"
+        let query = "?dsid=\(self.dsid)?numNeighbors=\(self.numNeighbors)"
         
         let getUrl = URL(string: baseURL+query)
         let request: URLRequest = URLRequest(url: getUrl!)
