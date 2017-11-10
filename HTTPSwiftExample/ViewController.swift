@@ -32,6 +32,11 @@ class ViewController: UIViewController, URLSessionDelegate {
     let animation = CATransition()
     let motion = CMMotionManager()
     
+    var knnAccuracy = 0.0
+    var lrAccuracy = 0.0
+    var mlpAccuracy = 0.0
+    var svmAccuracy = 0.0
+    
     var magValue = 0.8
     var isCalibrating = false
     
@@ -438,10 +443,14 @@ class ViewController: UIViewController, URLSessionDelegate {
                 else{
                     let jsonDictionary = self.convertDataToDictionary(with: data)
                     
-                    if let resubAcc = jsonDictionary["resubAccuracy"]{
-                        print("Resubstitution Accuracy is", resubAcc)
+                    
+                    self.knnAccuracy = jsonDictionary.value(forKey: "model_knn") as! Double
+                    self.lrAccuracy = jsonDictionary.value(forKey: "model_lr") as! Double
+                    self.mlpAccuracy = jsonDictionary.value(forKey: "model_mlp") as! Double
+                    self.svmAccuracy = jsonDictionary.value(forKey: "model_svm") as! Double
+                        
+                    
                     }
-                }
                                                                     
         })
         
@@ -456,21 +465,25 @@ class ViewController: UIViewController, URLSessionDelegate {
             self.neighborStaticTextLabel.isHidden = false
             self.neighborCountLabel.isHidden = false
             self.neighborStepper.isHidden = false
+            self.accuracyLabel.text = String(format: "%.2f", knnAccuracy*100) + "%"
         } else if(index == 1) {
             self.model = "model_svm"
             self.neighborStaticTextLabel.isHidden = true
             self.neighborCountLabel.isHidden = true
             self.neighborStepper.isHidden = true
+            self.accuracyLabel.text = String(format: "%.2f", svmAccuracy*100) + "%"
         } else if(index == 2) {
             self.model = "model_lr"
             self.neighborStaticTextLabel.isHidden = true
             self.neighborCountLabel.isHidden = true
             self.neighborStepper.isHidden = true
+            self.accuracyLabel.text = String(format: "%.2f", lrAccuracy*100) + "%"
         } else if(index == 3) {
             self.model = "model_mlp"
             self.neighborStaticTextLabel.isHidden = true
             self.neighborCountLabel.isHidden = true
             self.neighborStepper.isHidden = true
+            self.accuracyLabel.text = String(format: "%.2f", mlpAccuracy*100) + "%"
         } else {
             print("ERROR: Invalid segment index selected")
             self.model = "model_knn"
