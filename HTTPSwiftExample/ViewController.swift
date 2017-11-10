@@ -36,6 +36,7 @@ class ViewController: UIViewController, URLSessionDelegate {
     var lrAccuracy = 0.0
     var mlpAccuracy = 0.0
     var svmAccuracy = 0.0
+    var rfAccuracy = 0.0
     
     var magValue = 0.8
     var isCalibrating = false
@@ -448,6 +449,7 @@ class ViewController: UIViewController, URLSessionDelegate {
                     self.lrAccuracy = jsonDictionary.value(forKey: "model_lr") as! Double
                     self.mlpAccuracy = jsonDictionary.value(forKey: "model_mlp") as! Double
                     self.svmAccuracy = jsonDictionary.value(forKey: "model_svm") as! Double
+                    self.rfAccuracy = jsonDictionary.value(forKey: "model_rf") as! Double
                     
                     DispatchQueue.main.async {
                         self.changeSegment(self.segmentedControl)
@@ -482,6 +484,12 @@ class ViewController: UIViewController, URLSessionDelegate {
             self.accuracyLabel.text = String(format: "%.2f", lrAccuracy*100) + "%"
         } else if(index == 3) {
             self.model = "model_mlp"
+            self.neighborStaticTextLabel.isHidden = true
+            self.neighborCountLabel.isHidden = true
+            self.neighborStepper.isHidden = true
+            self.accuracyLabel.text = String(format: "%.2f", mlpAccuracy*100) + "%"
+        } else if(index == 4) {
+            self.model = "model_rf"
             self.neighborStaticTextLabel.isHidden = true
             self.neighborCountLabel.isHidden = true
             self.neighborStepper.isHidden = true

@@ -74,7 +74,8 @@
                                     <segment title="KNN"/>
                                     <segment title="SVM"/>
                                     <segment title="Log Reg"/>
-                                    <segment title="Perceptron"/>
+                                    <segment title="MLP"/>
+                                    <segment title="Forest"/>
                                 </segments>
                                 <connections>
                                     <action selector="changeSegment:" destination="vXZ-lx-hvc" eventType="valueChanged" id="y5o-BI-zgW"/>

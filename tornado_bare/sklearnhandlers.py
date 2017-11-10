@@ -10,6 +10,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm
 from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier
+from sklearn.ensemble import RandomForestClassifier
 import pickle
 from bson.binary import Binary
 import json
@@ -74,7 +75,8 @@ class UpdateModelForDatasetId(BaseHandler):
             KNeighborsClassifier(n_neighbors = numNeighbors),
             svm.SVC(kernel='linear', C=100),
             LogisticRegression(),
-            MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
+            MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1),
+            RandomForestClassifier(n_estimators=150)
         ]
 
         self.classifiers_pkl = []
@@ -110,24 +112,27 @@ class UpdateModelForDatasetId(BaseHandler):
                         "model_svm": Binary(self.classifiers_pkl[1]),
                         "model_lr": Binary(self.classifiers_pkl[2]),
                         "model_mlp": Binary(self.classifiers_pkl[3]),
+                        "model_rf": Binary(self.classifiers_pkl[4])
                     }
                 },
                 upsert=True
             )
             print("Retrained the models")
 
-            fileNames = ['knn', 'svm', 'lr', 'mlp']
+            
 
-            # Generate coreml files
-            for i in range(0,4):
-                model[i] = sklearn.convert(lm)
-                model[i].save('CML_' + fileNames[i] + '.mlmodel') 
+            # We didn't get to creating the coreml files but if we did...
+            # fileNames = ['knn', 'svm', 'lr', 'mlp', 'rf']
+            # for i in range(0,4):
+            #     model[i] = sklearn.convert(lm)
+            #     model[i].save('CML_' + fileNames[i] + '.mlmodel')
 
             self.write_json({
                 "model_knn": self.classifiers_accuracy[0],
                 "model_svm": self.classifiers_accuracy[1],
                 "model_lr": self.classifiers_accuracy[2],
-                "model_mlp": self.classifiers_accuracy[3]
+                "model_mlp": self.classifiers_accuracy[3],
+                "model_rf": self.classifiers_accuracy[4]
             })
 
 class PredictOneFromDatasetId(BaseHandler):
