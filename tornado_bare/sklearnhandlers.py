@@ -7,6 +7,7 @@ from tornado.ioloop import IOLoop
 from tornado.options import define, options
 from basehandler import BaseHandler
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn import svm
 import pickle
 from bson.binary import Binary
 import json
@@ -51,6 +52,8 @@ class UpdateModelForDatasetId(BaseHandler):
         '''Train a new model (or update) for given dataset ID
         '''
         dsid = self.get_int_arg("dsid",default=0)
+        model = self.get_int_arg("model",default=0)
+        numNeighbors = self.get_int_arg("numNeighbors",default=3)
 
         # create feature vectors from database
         f=[]
@@ -63,7 +66,12 @@ class UpdateModelForDatasetId(BaseHandler):
             l.append(a['label'])
 
         # fit the model to the data
-        c1 = KNeighborsClassifier(n_neighbors=3)
+        #c1 = KNeighborsClassifier(n_neighbors = numNeighbors)
+        c1 = svm.SVC()
+        
+        if(model == 1):
+            c1 = svm.SVC()
+        
         acc = -1
         if l:
             c1.fit(f, l) # training
