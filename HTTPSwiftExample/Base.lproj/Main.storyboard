@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q83-th-e1u">
-                                <rect key="frame" x="129.5" y="599" width="116" height="48"/>
+                                <rect key="frame" x="130" y="599" width="116" height="48"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Calibrate">
@@ -39,7 +39,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="↓" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyW-Em-uOE">
-                                <rect key="frame" x="156.5" y="501" width="62" height="90"/>
+                                <rect key="frame" x="157" y="501" width="62" height="90"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="75"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -54,22 +54,35 @@
                                 <rect key="frame" x="16" y="265" width="343" height="2"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="↑" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CF6-hb-3Kh">
-                                <rect key="frame" x="156.5" y="384" width="62" height="90"/>
+                                <rect key="frame" x="157" y="384" width="62" height="90"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="75"/>
                                 <nil key="textColor"/>
                                 <color key="highlightedColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2C-z4-fvG">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2C-z4-fvG">
                                 <rect key="frame" x="224" y="342" width="135" height="54"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Update Model"/>
                                 <connections>
                                     <action selector="makeModel:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="DYk-YV-lBj"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Fzf-Xf-iNJ">
+                                <rect key="frame" x="16" y="28" width="343" height="29"/>
+                                <segments>
+                                    <segment title="KNN"/>
+                                    <segment title="SVM"/>
+                                    <segment title="Log Reg"/>
+                                    <segment title="Perceptron"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeSegment:" destination="vXZ-lx-hvc" eventType="valueChanged" id="y5o-BI-zgW"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Fzf-Xf-iNJ" firstAttribute="trailing" secondItem="hUu-DN-Kwe" secondAttribute="trailing" id="3ZT-lW-TV5"/>
+                            <constraint firstItem="Fzf-Xf-iNJ" firstAttribute="leading" secondItem="hUu-DN-Kwe" secondAttribute="leading" id="E0B-Fd-gvX"/>
                             <constraint firstItem="hUu-DN-Kwe" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="GQz-pu-fvz"/>
                             <constraint firstItem="yvq-UU-Czy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="Gys-0X-VVv"/>
                             <constraint firstItem="xyW-Em-uOE" firstAttribute="top" secondItem="CF6-hb-3Kh" secondAttribute="bottom" constant="27" id="KtG-P0-Rou"/>
@@ -78,7 +91,9 @@
                             <constraint firstItem="Q83-th-e1u" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="XyN-Cw-SqW"/>
                             <constraint firstItem="xyW-Em-uOE" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="ZLA-b5-zjs"/>
                             <constraint firstItem="YSY-pP-JYh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="ZaV-Lw-isM"/>
+                            <constraint firstItem="Fzf-Xf-iNJ" firstAttribute="trailing" secondItem="v2C-z4-fvG" secondAttribute="trailing" id="aGq-gw-36P"/>
                             <constraint firstItem="hUu-DN-Kwe" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="bNO-4O-ATp"/>
+                            <constraint firstItem="Fzf-Xf-iNJ" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" symbolic="YES" id="czU-j7-HBC"/>
                             <constraint firstItem="YSY-pP-JYh" firstAttribute="centerY" secondItem="yvq-UU-Czy" secondAttribute="centerY" id="flM-zi-jsm"/>
                             <constraint firstItem="yvq-UU-Czy" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="hUM-ME-UYn"/>
                             <constraint firstItem="CF6-hb-3Kh" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="jcL-7e-OHt"/>
@@ -91,6 +106,7 @@
                         <outlet property="largeMotionMagnitude" destination="hUu-DN-Kwe" id="oWd-Qb-Qtq"/>
                         <outlet property="leftArrow" destination="YSY-pP-JYh" id="tST-zn-Nl1"/>
                         <outlet property="rightArrow" destination="yvq-UU-Czy" id="RQ7-Cu-A6a"/>
+                        <outlet property="segmentedControl" destination="Fzf-Xf-iNJ" id="RYg-18-ahX"/>
                         <outlet property="upArrow" destination="CF6-hb-3Kh" id="LOq-FD-eGk"/>
                     </connections>
                 </viewController>

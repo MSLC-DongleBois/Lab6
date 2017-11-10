@@ -15,7 +15,7 @@
 //    ifconfig |grep inet   
 // to see what your public facing IP address is, the ip address can be used here
 //let SERVER_URL = "http://erics-macbook-pro.local:8000" // change this for your server name!!!
-let SERVER_URL = "http://10.8.137.249:8000" // change this for your server name!!!!!
+let SERVER_URL = "http://10.8.153.104:8000" // change this for your server name!!!!!
 
 import UIKit
 import CoreMotion
@@ -43,6 +43,7 @@ class ViewController: UIViewController, URLSessionDelegate {
     @IBOutlet weak var downArrow: UILabel!
     @IBOutlet weak var leftArrow: UILabel!
     @IBOutlet weak var largeMotionMagnitude: UIProgressView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     // MARK: Class Properties with Observers
     enum CalibrationStage {
@@ -111,6 +112,24 @@ class ViewController: UIViewController, URLSessionDelegate {
             DispatchQueue.main.async{
                 // update label when set
                
+            }
+        }
+    }
+    
+    var model:Int = 0 {
+        didSet{
+            DispatchQueue.main.async{
+                // update label when set
+                
+            }
+        }
+    }
+    
+    var numNeighbors:Int = 3 {
+        didSet{
+            DispatchQueue.main.async{
+                // update label when set
+                
             }
         }
     }
@@ -404,7 +423,7 @@ class ViewController: UIViewController, URLSessionDelegate {
         
         // create a GET request for server to update the ML model with current data
         let baseURL = "\(SERVER_URL)/UpdateModel"
-        let query = "?dsid=\(self.dsid)"
+        let query = "?dsid=\(self.dsid)?model=\(self.model)?numNeighbors=\(self.numNeighbors)"
         
         let getUrl = URL(string: baseURL+query)
         let request: URLRequest = URLRequest(url: getUrl!)
@@ -429,6 +448,12 @@ class ViewController: UIViewController, URLSessionDelegate {
         dataTask.resume() // start the task
         
     }
+    
+    @IBAction func changeSegment(_ sender: UISegmentedControl) {
+        self.model = segmentedControl.selectedSegmentIndex
+        print("Changed segment to: \(segmentedControl.selectedSegmentIndex)")
+    }
+    
     
     //MARK: JSON Conversion Functions
     func convertDictionaryToData(with jsonUpload:NSDictionary) -> Data?{
