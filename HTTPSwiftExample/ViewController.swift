@@ -45,6 +45,7 @@ class ViewController: UIViewController, URLSessionDelegate {
     @IBOutlet weak var neighborStaticTextLabel: UILabel!
     @IBOutlet weak var neighborCountLabel: UILabel!
     @IBOutlet weak var neighborStepper: UIStepper!
+    @IBOutlet weak var accuracyLabel: UILabel!
     
     // MARK: Class Properties with Observers
     enum CalibrationStage {

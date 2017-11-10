@@ -114,6 +114,13 @@ class UpdateModelForDatasetId(BaseHandler):
             )
             print("Retrained the models")
 
+            self.write_json({
+                "model_knn": classifiers_accuracy[0],
+                "model_svm": classifiers_accuracy[1],
+                "model_lr": classifiers_accuracy[2],
+                "model_mlp": classifiers_accuracy[3]
+            })
+
         # send back the resubstitution accuracy
         # if training takes a while, we are blocking tornado!! No!!
         # self.write_json({"resubAccuracy": acc})

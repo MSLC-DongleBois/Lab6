@@ -146,6 +146,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="accuracyLabel" destination="yle-SI-pvq" id="19q-zb-gN7"/>
                         <outlet property="downArrow" destination="xyW-Em-uOE" id="InM-Bs-xaV"/>
                         <outlet property="leftArrow" destination="YSY-pP-JYh" id="tST-zn-Nl1"/>
                         <outlet property="neighborCountLabel" destination="5Qi-Yj-f3r" id="cF2-nO-Fuf"/>
