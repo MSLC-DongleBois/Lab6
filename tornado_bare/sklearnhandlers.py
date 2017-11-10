@@ -15,6 +15,8 @@ from bson.binary import Binary
 import json
 import numpy as np
 
+from sklearn import cross_validation
+
 class PrintHandlers(BaseHandler):
     def get(self):
         '''Write out to screen the handlers used
@@ -75,6 +77,8 @@ class UpdateModelForDatasetId(BaseHandler):
 
         self.classifiers_pkl = []
 
+        self.classifiers_accuracy = []
+
         acc = -1
         if l:
             # c1.fit(f, l)
@@ -82,6 +86,12 @@ class UpdateModelForDatasetId(BaseHandler):
             for classifier in self.classifiers:
                 classifier.fit(f, l)
                 self.classifiers_pkl.append(pickle.dumps(classifier))
+                #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=1)
+                X_train, X_test, y_train, y_test = cross_validation.train_test_split(f, l, test_size=0.2, random_state=0)
+                scores = cross_validation.cross_val_score(classifier, f, l, cv=10)
+                self.classifiers_accuracy.append(scores.mean())
+            
+
             # lstar = c1.predict(f)
             # self.clf = classifiers
             # acc = sum(lstar == l)/float(len(l))
