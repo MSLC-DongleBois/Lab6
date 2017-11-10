@@ -116,7 +116,7 @@ class ViewController: UIViewController, URLSessionDelegate {
         }
     }
     
-    var model:Int = 0 {
+    var model:String = "model_knn" {
         didSet{
             DispatchQueue.main.async{
                 // update label when set
@@ -450,7 +450,19 @@ class ViewController: UIViewController, URLSessionDelegate {
     }
     
     @IBAction func changeSegment(_ sender: UISegmentedControl) {
-        self.model = segmentedControl.selectedSegmentIndex
+        let index = segmentedControl.selectedSegmentIndex
+        if(index == 0) {
+            self.model = "model_knn"
+        } else if(index == 1) {
+            self.model = "model_svm"
+        } else if(index == 2) {
+            self.model = "model_lr"
+        } else if(index == 3) {
+            self.model = "model_mlp"
+        } else {
+            print("ERROR: Invalid segment index selected")
+            self.model = "model_knn"
+        }
         print("Changed segment to: \(segmentedControl.selectedSegmentIndex)")
     }
     

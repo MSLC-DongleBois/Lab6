@@ -8,6 +8,8 @@ from tornado.options import define, options
 from basehandler import BaseHandler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm
+from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 import pickle
 from bson.binary import Binary
 import json
@@ -52,8 +54,6 @@ class UpdateModelForDatasetId(BaseHandler):
         '''Train a new model (or update) for given dataset ID
         '''
         dsid = self.get_int_arg("dsid",default=0)
-        model = self.get_int_arg("model",default=0)
-        numNeighbors = self.get_int_arg("numNeighbors",default=3)
 
         # create feature vectors from database
         f=[]
@@ -66,26 +66,36 @@ class UpdateModelForDatasetId(BaseHandler):
             l.append(a['label'])
 
         # fit the model to the data
-        #c1 = KNeighborsClassifier(n_neighbors = numNeighbors)
-        c1 = svm.SVC()
-        
-        if(model == 1):
-            c1 = svm.SVC()
+        self.classifiers = [
+            KNeighborsClassifier(n_neighbors = 3),
+            svm.SVC(),
+            LogisticRegression(),
+            MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
+        ]
+
+        self.classifiers_pkl = []
         
         acc = -1
         if l:
-            c1.fit(f, l) # training
-            lstar = c1.predict(f)
-            self.clf = c1
-            acc = sum(lstar == l)/float(len(l))
-            bytes = pickle.dumps(c1)
+            # c1.fit(f, l) 
+            # training
+            for classifier in self.classifiers:
+                classifier.fit(f, l)
+                self.classifiers_pkl.append(pickle.dumps(classifier))
+            # lstar = c1.predict(f)
+            # self.clf = classifiers
+            # acc = sum(lstar == l)/float(len(l))
+            # bytes = pickle.dumps(c1)
             self.db.models.update(
                 {
                     "dsid": dsid
                 },
                 {
                     "$set": {
-                        "model": Binary(bytes)
+                        "model_knn": Binary(classifiers_pkl[0]),
+                        "model_svm": Binary(classifiers_pkl[1]),
+                        "model_lr": Binary(classifiers_pkl[2]),
+                        "model_mlp": Binary(classifiers_pkl[3]),
                     }
                 },
                 upsert=True
@@ -93,7 +103,7 @@ class UpdateModelForDatasetId(BaseHandler):
 
         # send back the resubstitution accuracy
         # if training takes a while, we are blocking tornado!! No!!
-        self.write_json({"resubAccuracy": acc})
+        # self.write_json({"resubAccuracy": acc})
 
 class PredictOneFromDatasetId(BaseHandler):
     def post(self):
@@ -103,6 +113,8 @@ class PredictOneFromDatasetId(BaseHandler):
 
         vals = data['feature']
         dsid = data['dsid']
+        model = data['model']
+        numNeighbors = data['numNeighbors']
 
         fvals = [float(val) for val in vals]
         fvals = np.array(fvals).reshape(1, -1)
@@ -111,22 +123,23 @@ class PredictOneFromDatasetId(BaseHandler):
             print('Loading Model From DB')
             tmp = self.db.models.find_one({"dsid": dsid})
             if tmp:
-                self.clf = pickle.loads(tmp['model'])
+                self.clf = pickle.loads(tmp[model])
             else:
-                c1 = KNeighborsClassifier(n_neighbors=3)
-                self.clf = c1
-                bytes = pickle.dumps(c1)
-                self.db.models.update(
-                    {
-                        "dsid": dsid
-                    },
-                    {
-                        "$set": {
-                            "model": Binary(bytes)
-                        }
-                    },
-                    upsert=True
-                )
+                print("Shit! We got to the else")
+                # c1 = KNeighborsClassifier(n_neighbors=3)
+                # self.clf = c1
+                # bytes = pickle.dumps(c1)
+                # self.db.models.update(
+                #     {
+                #         "dsid": dsid
+                #     },
+                #     {
+                #         "$set": {
+                #             "model": Binary(bytes)
+                #         }
+                #     },
+                #     upsert=True
+                # )
         predLabel = self.clf.predict(fvals)
         print(predLabel)
         self.write_json({"prediction": str(predLabel)})
