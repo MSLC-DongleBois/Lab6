@@ -56,6 +56,8 @@ class UpdateModelForDatasetId(BaseHandler):
         '''Train a new model (or update) for given dataset ID
         '''
         dsid = self.get_int_arg("dsid",default=0)
+        numNeighbors = self.get_int_arg("numNeighbors",default=3)
+        print(numNeighbors)
 
         # create feature vectors from database
         f=[]
@@ -69,8 +71,8 @@ class UpdateModelForDatasetId(BaseHandler):
 
         # fit the model to the data
         self.classifiers = [
-            KNeighborsClassifier(n_neighbors = 10),
-            svm.SVC(),
+            KNeighborsClassifier(n_neighbors = numNeighbors),
+            svm.SVC(kernel='linear', C=100),
             LogisticRegression(),
             MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
         ]
@@ -90,8 +92,8 @@ class UpdateModelForDatasetId(BaseHandler):
                 X_train, X_test, y_train, y_test = cross_validation.train_test_split(f, l, test_size=0.2, random_state=0)
                 scores = cross_validation.cross_val_score(classifier, f, l, cv=10)
                 self.classifiers_accuracy.append(scores.mean())
-            
 
+            print(self.classifiers_accuracy)
             # lstar = c1.predict(f)
             # self.clf = classifiers
             # acc = sum(lstar == l)/float(len(l))
@@ -125,7 +127,6 @@ class PredictOneFromDatasetId(BaseHandler):
         vals = data['feature']
         dsid = data['dsid']
         model = data['model']
-        numNeighbors = data['numNeighbors']
 
         fvals = [float(val) for val in vals]
         fvals = np.array(fvals).reshape(1, -1)
