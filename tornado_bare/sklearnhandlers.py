@@ -115,10 +115,10 @@ class UpdateModelForDatasetId(BaseHandler):
             print("Retrained the models")
 
             self.write_json({
-                "model_knn": classifiers_accuracy[0],
-                "model_svm": classifiers_accuracy[1],
-                "model_lr": classifiers_accuracy[2],
-                "model_mlp": classifiers_accuracy[3]
+                "model_knn": self.classifiers_accuracy[0],
+                "model_svm": self.classifiers_accuracy[1],
+                "model_lr": self.classifiers_accuracy[2],
+                "model_mlp": self.classifiers_accuracy[3]
             })
 
         # send back the resubstitution accuracy
