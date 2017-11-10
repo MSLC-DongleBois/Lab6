@@ -56,7 +56,7 @@
                                 <nil key="textColor"/>
                                 <color key="highlightedColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2C-z4-fvG">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2C-z4-fvG">
                                 <rect key="frame" x="120" y="129" width="135" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="135" id="QmX-us-ceV"/>
@@ -68,7 +68,7 @@
                                     <action selector="makeModel:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="DYk-YV-lBj"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Fzf-Xf-iNJ">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Fzf-Xf-iNJ">
                                 <rect key="frame" x="16" y="28" width="343" height="29"/>
                                 <segments>
                                     <segment title="KNN"/>
@@ -116,12 +116,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Fzf-Xf-iNJ" firstAttribute="leading" secondItem="dbB-Uw-GN1" secondAttribute="leading" id="8j7-KV-heD"/>
                             <constraint firstItem="yle-SI-pvq" firstAttribute="leading" secondItem="pC8-GG-r1E" secondAttribute="trailing" constant="149" id="EVl-jY-txN"/>
                             <constraint firstItem="v2C-z4-fvG" firstAttribute="top" secondItem="dbB-Uw-GN1" secondAttribute="bottom" constant="30" id="GNv-r5-SdD"/>
                             <constraint firstItem="yvq-UU-Czy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="Gys-0X-VVv"/>
                             <constraint firstItem="pC8-GG-r1E" firstAttribute="top" secondItem="dbB-Uw-GN1" secondAttribute="bottom" constant="87" id="IIa-QS-7s9"/>
                             <constraint firstItem="xyW-Em-uOE" firstAttribute="top" secondItem="CF6-hb-3Kh" secondAttribute="bottom" constant="27" id="KtG-P0-Rou"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YSY-pP-JYh" secondAttribute="trailingMargin" id="QYP-Cb-bNv"/>
+                            <constraint firstItem="Fzf-Xf-iNJ" firstAttribute="trailing" secondItem="4m9-lg-Jz6" secondAttribute="trailing" id="TF9-nj-y5A"/>
                             <constraint firstItem="5Qi-Yj-f3r" firstAttribute="top" secondItem="Fzf-Xf-iNJ" secondAttribute="bottom" constant="22" id="TTf-yB-m5X"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Q83-th-e1u" secondAttribute="bottom" constant="20" id="XgC-Er-Szf"/>
                             <constraint firstItem="Q83-th-e1u" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="XyN-Cw-SqW"/>
