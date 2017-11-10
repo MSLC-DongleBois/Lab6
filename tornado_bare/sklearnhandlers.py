@@ -81,12 +81,14 @@ class UpdateModelForDatasetId(BaseHandler):
 
         self.classifiers_accuracy = []
 
+        self.models = []
+
         acc = -1
         if l:
             # c1.fit(f, l)
             # training
             for classifier in self.classifiers:
-                classifier.fit(f, l)
+                self.models.append(classifier.fit(f, l))
                 self.classifiers_pkl.append(pickle.dumps(classifier))
                 #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=1)
                 X_train, X_test, y_train, y_test = cross_validation.train_test_split(f, l, test_size=0.2, random_state=0)
@@ -114,16 +116,19 @@ class UpdateModelForDatasetId(BaseHandler):
             )
             print("Retrained the models")
 
+            fileNames = ['knn', 'svm', 'lr', 'mlp']
+
+            # Generate coreml files
+            for i in range(0,4):
+                model[i] = sklearn.convert(lm)
+                model[i].save('CML_' + fileNames[i] + '.mlmodel') 
+
             self.write_json({
                 "model_knn": self.classifiers_accuracy[0],
                 "model_svm": self.classifiers_accuracy[1],
                 "model_lr": self.classifiers_accuracy[2],
                 "model_mlp": self.classifiers_accuracy[3]
             })
-
-        # send back the resubstitution accuracy
-        # if training takes a while, we are blocking tornado!! No!!
-        # self.write_json({"resubAccuracy": acc})
 
 class PredictOneFromDatasetId(BaseHandler):
     def post(self):
