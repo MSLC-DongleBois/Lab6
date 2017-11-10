@@ -57,7 +57,7 @@ class UpdateModelForDatasetId(BaseHandler):
 
         # create feature vectors from database
         f=[]
-        for a in self.db.labeledinstances.find({"dsid":dsid}): 
+        for a in self.db.labeledinstances.find({"dsid":dsid}):
             f.append([float(val) for val in a['feature']])
 
         # create label vector from database
@@ -67,17 +67,17 @@ class UpdateModelForDatasetId(BaseHandler):
 
         # fit the model to the data
         self.classifiers = [
-            KNeighborsClassifier(n_neighbors = 3),
+            KNeighborsClassifier(n_neighbors = 10),
             svm.SVC(),
             LogisticRegression(),
             MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
         ]
 
         self.classifiers_pkl = []
-        
+
         acc = -1
         if l:
-            # c1.fit(f, l) 
+            # c1.fit(f, l)
             # training
             for classifier in self.classifiers:
                 classifier.fit(f, l)
@@ -100,6 +100,7 @@ class UpdateModelForDatasetId(BaseHandler):
                 },
                 upsert=True
             )
+            print("Retrained the models")
 
         # send back the resubstitution accuracy
         # if training takes a while, we are blocking tornado!! No!!
@@ -109,7 +110,7 @@ class PredictOneFromDatasetId(BaseHandler):
     def post(self):
         '''Predict the class of a sent feature vector
         '''
-        data = json.loads(self.request.body.decode("utf-8"))    
+        data = json.loads(self.request.body.decode("utf-8"))
 
         vals = data['feature']
         dsid = data['dsid']
@@ -119,27 +120,28 @@ class PredictOneFromDatasetId(BaseHandler):
         fvals = [float(val) for val in vals]
         fvals = np.array(fvals).reshape(1, -1)
 
-        if self.clf == []:
-            print('Loading Model From DB')
-            tmp = self.db.models.find_one({"dsid": dsid})
-            if tmp:
-                self.clf = pickle.loads(tmp[model])
-            else:
-                print("Shit! We got to the else")
-                # c1 = KNeighborsClassifier(n_neighbors=3)
-                # self.clf = c1
-                # bytes = pickle.dumps(c1)
-                # self.db.models.update(
-                #     {
-                #         "dsid": dsid
-                #     },
-                #     {
-                #         "$set": {
-                #             "model": Binary(bytes)
-                #         }
-                #     },
-                #     upsert=True
-                # )
+        #if self.clf == []:
+        print('Loading Model From DB')
+        tmp = self.db.models.find_one({"dsid": dsid})
+        if tmp:
+            self.clf = pickle.loads(tmp[model])
+            print(model)
+        else:
+            print("Shit! We got to the else")
+            # c1 = KNeighborsClassifier(n_neighbors=3)
+            # self.clf = c1
+            # bytes = pickle.dumps(c1)
+            # self.db.models.update(
+            #     {
+            #         "dsid": dsid
+            #     },
+            #     {
+            #         "$set": {
+            #             "model": Binary(bytes)
+            #         }
+            #     },
+            #     upsert=True
+            # )
         predLabel = self.clf.predict(fvals)
         print(predLabel)
         self.write_json({"prediction": str(predLabel)})
