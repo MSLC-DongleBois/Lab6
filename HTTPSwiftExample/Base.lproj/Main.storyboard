@@ -50,16 +50,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hUu-DN-Kwe">
-                                <rect key="frame" x="16" y="265" width="343" height="2"/>
-                            </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="↑" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CF6-hb-3Kh">
                                 <rect key="frame" x="157" y="384" width="62" height="90"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="75"/>
                                 <nil key="textColor"/>
                                 <color key="highlightedColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2C-z4-fvG">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2C-z4-fvG">
                                 <rect key="frame" x="120" y="129" width="135" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="135" id="QmX-us-ceV"/>
@@ -71,7 +68,7 @@
                                     <action selector="makeModel:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="DYk-YV-lBj"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Fzf-Xf-iNJ">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Fzf-Xf-iNJ">
                                 <rect key="frame" x="16" y="28" width="343" height="29"/>
                                 <segments>
                                     <segment title="KNN"/>
@@ -119,11 +116,8 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Fzf-Xf-iNJ" firstAttribute="trailing" secondItem="hUu-DN-Kwe" secondAttribute="trailing" id="3ZT-lW-TV5"/>
-                            <constraint firstItem="Fzf-Xf-iNJ" firstAttribute="leading" secondItem="hUu-DN-Kwe" secondAttribute="leading" id="E0B-Fd-gvX"/>
                             <constraint firstItem="yle-SI-pvq" firstAttribute="leading" secondItem="pC8-GG-r1E" secondAttribute="trailing" constant="149" id="EVl-jY-txN"/>
                             <constraint firstItem="v2C-z4-fvG" firstAttribute="top" secondItem="dbB-Uw-GN1" secondAttribute="bottom" constant="30" id="GNv-r5-SdD"/>
-                            <constraint firstItem="hUu-DN-Kwe" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="GQz-pu-fvz"/>
                             <constraint firstItem="yvq-UU-Czy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="Gys-0X-VVv"/>
                             <constraint firstItem="pC8-GG-r1E" firstAttribute="top" secondItem="dbB-Uw-GN1" secondAttribute="bottom" constant="87" id="IIa-QS-7s9"/>
                             <constraint firstItem="xyW-Em-uOE" firstAttribute="top" secondItem="CF6-hb-3Kh" secondAttribute="bottom" constant="27" id="KtG-P0-Rou"/>
@@ -135,7 +129,6 @@
                             <constraint firstItem="YSY-pP-JYh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="ZaV-Lw-isM"/>
                             <constraint firstItem="dbB-Uw-GN1" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="aFS-sE-b1q"/>
                             <constraint firstItem="yle-SI-pvq" firstAttribute="top" secondItem="Fzf-Xf-iNJ" secondAttribute="bottom" constant="130" id="asA-7f-ihx"/>
-                            <constraint firstItem="hUu-DN-Kwe" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="bNO-4O-ATp"/>
                             <constraint firstItem="5Qi-Yj-f3r" firstAttribute="leading" secondItem="dbB-Uw-GN1" secondAttribute="trailing" constant="4" id="cNG-QX-nr1"/>
                             <constraint firstItem="v2C-z4-fvG" firstAttribute="centerX" secondItem="Fzf-Xf-iNJ" secondAttribute="centerX" id="cRL-rh-Czv"/>
                             <constraint firstItem="Fzf-Xf-iNJ" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" symbolic="YES" id="czU-j7-HBC"/>
@@ -152,7 +145,6 @@
                     </view>
                     <connections>
                         <outlet property="downArrow" destination="xyW-Em-uOE" id="InM-Bs-xaV"/>
-                        <outlet property="largeMotionMagnitude" destination="hUu-DN-Kwe" id="oWd-Qb-Qtq"/>
                         <outlet property="leftArrow" destination="YSY-pP-JYh" id="tST-zn-Nl1"/>
                         <outlet property="neighborCountLabel" destination="5Qi-Yj-f3r" id="cF2-nO-Fuf"/>
                         <outlet property="neighborStaticTextLabel" destination="dbB-Uw-GN1" id="wqq-J5-KnK"/>

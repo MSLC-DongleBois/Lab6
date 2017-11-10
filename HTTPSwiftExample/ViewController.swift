@@ -37,12 +37,10 @@ class ViewController: UIViewController, URLSessionDelegate {
     
     var isWaitingForMotionData = false
     
-    @IBOutlet weak var dsidLabel: UILabel!
     @IBOutlet weak var upArrow: UILabel!
     @IBOutlet weak var rightArrow: UILabel!
     @IBOutlet weak var downArrow: UILabel!
     @IBOutlet weak var leftArrow: UILabel!
-    @IBOutlet weak var largeMotionMagnitude: UIProgressView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var neighborStaticTextLabel: UILabel!
     @IBOutlet weak var neighborCountLabel: UILabel!
@@ -136,11 +134,7 @@ class ViewController: UIViewController, URLSessionDelegate {
             }
         }
     }
-    
-    @IBAction func magnitudeChanged(_ sender: UISlider) {
-        self.magValue = Double(sender.value)
-    }
-    
+        
     // MARK: Core Motion Updates
     func startMotionUpdates(){
         // some internal inconsistency here: we need to ask the device manager for device
@@ -156,10 +150,10 @@ class ViewController: UIViewController, URLSessionDelegate {
             self.ringBuffer.addNewData(xData: accel.x, yData: accel.y, zData: accel.z)
             let mag = fabs(accel.x)+fabs(accel.y)+fabs(accel.z)
             
-            DispatchQueue.main.async{
-                //show magnitude via indicator
-                self.largeMotionMagnitude.progress = Float(mag)/0.2
-            }
+//            DispatchQueue.main.async{
+//                //show magnitude via indicator
+//                self.largeMotionMagnitude.progress = Float(mag)/0.2
+//            }
             
             if mag > self.magValue {
                 // buffer up a bit more data and then notify of occurrence
@@ -428,7 +422,7 @@ class ViewController: UIViewController, URLSessionDelegate {
         
         // create a GET request for server to update the ML model with current data
         let baseURL = "\(SERVER_URL)/UpdateModel"
-        let query = "?dsid=\(self.dsid)?numNeighbors=\(self.numNeighbors)"
+        let query = "?dsid=\(self.dsid)&numNeighbors=\(self.numNeighbors)"
         
         let getUrl = URL(string: baseURL+query)
         let request: URLRequest = URLRequest(url: getUrl!)
