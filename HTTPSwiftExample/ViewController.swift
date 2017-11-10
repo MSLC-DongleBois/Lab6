@@ -15,7 +15,7 @@
 //    ifconfig |grep inet   
 // to see what your public facing IP address is, the ip address can be used here
 //let SERVER_URL = "http://erics-macbook-pro.local:8000" // change this for your server name!!!
-let SERVER_URL = "http://192.168.29.210:8000" // change this for your server name!!!
+let SERVER_URL = "http://10.8.137.249:8000" // change this for your server name!!!!!
 
 import UIKit
 import CoreMotion
@@ -207,7 +207,6 @@ class ViewController: UIViewController, URLSessionDelegate {
         case .left:
             //end calibration
             self.calibrationStage = .notCalibrating
-            makeModel(self)
             setDelayedWaitingToTrue(1.0)
             break
         }
