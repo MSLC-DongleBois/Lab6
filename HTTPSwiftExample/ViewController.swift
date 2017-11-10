@@ -448,8 +448,10 @@ class ViewController: UIViewController, URLSessionDelegate {
                     self.lrAccuracy = jsonDictionary.value(forKey: "model_lr") as! Double
                     self.mlpAccuracy = jsonDictionary.value(forKey: "model_mlp") as! Double
                     self.svmAccuracy = jsonDictionary.value(forKey: "model_svm") as! Double
-                        
                     
+                    DispatchQueue.main.async {
+                        self.changeSegment(self.segmentedControl)
+                    }
                     }
                                                                     
         })
