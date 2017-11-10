@@ -92,10 +92,10 @@ class UpdateModelForDatasetId(BaseHandler):
                 },
                 {
                     "$set": {
-                        "model_knn": Binary(classifiers_pkl[0]),
-                        "model_svm": Binary(classifiers_pkl[1]),
-                        "model_lr": Binary(classifiers_pkl[2]),
-                        "model_mlp": Binary(classifiers_pkl[3]),
+                        "u'model_knn'": Binary(classifiers_pkl[0]),
+                        "u'model_svm'": Binary(classifiers_pkl[1]),
+                        "u'model_lr'": Binary(classifiers_pkl[2]),
+                        "u'model_mlp'": Binary(classifiers_pkl[3]),
                     }
                 },
                 upsert=True
