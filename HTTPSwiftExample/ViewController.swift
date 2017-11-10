@@ -454,7 +454,7 @@ class ViewController: UIViewController, URLSessionDelegate {
                     DispatchQueue.main.async {
                         self.changeSegment(self.segmentedControl)
                     }
-                    }
+                }
                                                                     
         })
         
@@ -493,7 +493,7 @@ class ViewController: UIViewController, URLSessionDelegate {
             self.neighborStaticTextLabel.isHidden = true
             self.neighborCountLabel.isHidden = true
             self.neighborStepper.isHidden = true
-            self.accuracyLabel.text = String(format: "%.2f", mlpAccuracy*100) + "%"
+            self.accuracyLabel.text = String(format: "%.2f", rfAccuracy*100) + "%"
         } else {
             print("ERROR: Invalid segment index selected")
             self.model = "model_knn"
