@@ -488,7 +488,7 @@ class ViewController: UIViewController, URLSessionDelegate {
     
     @IBAction func changeStepper(_ sender: Any) {
         self.numNeighbors = Int(self.neighborStepper.value)
-        self.neighborCountLabel.text = "\(self.neighborStepper.value)"
+        self.neighborCountLabel.text = "\(Int(self.neighborStepper.value))"
     }
     
     //MARK: JSON Conversion Functions
