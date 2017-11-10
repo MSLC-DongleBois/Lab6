@@ -44,6 +44,8 @@ class ViewController: UIViewController, URLSessionDelegate {
     @IBOutlet weak var leftArrow: UILabel!
     @IBOutlet weak var largeMotionMagnitude: UIProgressView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var neighborCountLabel: UILabel!
+    @IBOutlet weak var neighborStepper: UIStepper!
     
     // MARK: Class Properties with Observers
     enum CalibrationStage {
@@ -277,6 +279,8 @@ class ViewController: UIViewController, URLSessionDelegate {
         startMotionUpdates()
         
         dsid = 2 // set this and it will update UI
+        
+        self.neighborStepper.value = 3
     }
 
     //MARK: Get New Dataset ID
@@ -466,6 +470,10 @@ class ViewController: UIViewController, URLSessionDelegate {
         print("Changed segment to: \(segmentedControl.selectedSegmentIndex)")
     }
     
+    @IBAction func changeStepper(_ sender: Any) {
+        self.numNeighbors = Int(self.neighborStepper.value)
+        self.neighborCountLabel.text = "\(self.neighborStepper.value)"
+    }
     
     //MARK: JSON Conversion Functions
     func convertDictionaryToData(with jsonUpload:NSDictionary) -> Data?{
